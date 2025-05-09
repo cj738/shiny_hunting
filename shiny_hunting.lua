@@ -74,10 +74,44 @@ local function walk_pokemart_loop()
     end
 end
 
+local function check_shiny_pixels()
+    -- Coordinates must match the spot where the hatched Pokémon appears
+    -- You may need to adjust (x, y) for your screen resolution
+    local x = 120
+    local y = -62
+
+    local color = gui.getpixel(x, y)
+    print(string.format("📸 Pixel at (%d, %d): #%06X", x, y, color))
+
+    -- Optional: add a simple condition
+    -- if color == 0xE0C0A0 then
+    --     print("✨ Possible shiny detected!")
+    -- end
+end
+local function wait_for_hatch(frames)
+    for i = 1, frames do
+        emu.frameadvance()
+    end
+end
+
+local function highlight_pixel(x, y)
+    local size = 3
+    for i = 1, 20 do
+        gui.drawline(x - size, y - size, x + size, y + size, "red")
+        gui.drawline(x - size, y + size, x + size, y - size, "red")
+        emu.frameadvance()
+    end
+end
+
+
 
 
 soft_reset()
 talk_to_aid()
 walk_pokemart_loop()
 mash_a()
-    
+wait_for_hatch(240)
+-- check_shiny_pixels()
+-- while true do
+--     highlight_pixel(120,-63)
+-- end

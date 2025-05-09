@@ -9,15 +9,11 @@ load_dotenv()
 
 desume_path = os.getenv("EMU_DIR") + "\\DeSmuME_0.9.13_x64.exe"
 rom_path = os.getenv("ROM_DIR") + "\\4780 - Pokemon HeartGold (U)(Xenophobia).nds"
-lua_path = os.getenv("LUA_PATH")
+num_instances = 8
+target_title = "DeSmuME 0.9.13 x64 SSE2 | Pokémon HeartGold"
 
-num_instances = 1
-
-print(desume_path)
-
+# Step 1: Launch all instances
 for i in range(num_instances):
-    subprocess.Popen([
-        desume_path
-        , rom_path
-        ])
- 
+    subprocess.Popen([desume_path, rom_path])
+    time.sleep(1)  # small delay between launches
+
